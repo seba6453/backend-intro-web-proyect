@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/
 import { ProyectService } from './proyect.service';
 import { CreateProyectDto } from './dto/create-proyect.dto';
 import { UpdateProyectDto } from './dto/update-proyect.dto';
+import { BodyTeam } from './entities/bodyAddTeam.entity';
 
 @Controller('proyect')
 export class ProyectController {
@@ -19,11 +20,6 @@ export class ProyectController {
     return this.proyectService.findAll(token);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.proyectService.findOne(+id);
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProyectDto: UpdateProyectDto, @Req() request: Request) {
     const token = request.headers['authorization'].split(" ")[1];
@@ -34,5 +30,23 @@ export class ProyectController {
   remove(@Param('id') id: string, @Req() request: Request) {
     const token = request.headers['authorization'].split(" ")[1];
     return this.proyectService.remove(id, token);
+  }
+
+  @Post('/addteam')
+  addTeam(@Body() body: BodyTeam, @Req() request: Request){
+    const token = request.headers['authorization'].split(" ")[1];
+    return this.proyectService.addTeam(body, token);
+  }
+
+  @Delete('/deleteteam/:idteam')
+  deleteTeam(@Param('idteam') idteam: string, @Req() request: Request){
+    const token = request.headers['authorization'].split(" ")[1];
+    return this.proyectService.deleteTeam(idteam, token);
+  }
+
+  @Get('/teams/:idproyect')
+  findTeamsProyect(@Param('idproyect') idproyect: string, @Req() request: Request) {
+    const token = request.headers['authorization'].split(" ")[1];
+    return this.proyectService.findTeamProyect(idproyect, token);
   }
 }
