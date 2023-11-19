@@ -23,11 +23,13 @@ export class ProyectService {
   ){}
 
   async create(createProyectDto: CreateProyectDto, token: string) {
-    const userToken: User = await decodeToken(token,this.jwtService);
+    const userToken: User = decodeToken(token,this.jwtService);
     if (!userToken || typeof userToken !== 'object') {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
     createProyectDto.owner = userToken.userName;
+    console.log(createProyectDto);
+    console.log(123)
     return this.proyectModel.create(createProyectDto);
   }
 

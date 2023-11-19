@@ -9,6 +9,5 @@ export class CreateProyectDto {
     @IsNotEmpty()
     description: string;
 
-    @IsString()
     owner?: string;
 }

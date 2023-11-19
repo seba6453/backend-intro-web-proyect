@@ -3,7 +3,8 @@ import { ProyectService } from './proyect.service';
 import { CreateProyectDto } from './dto/create-proyect.dto';
 import { UpdateProyectDto } from './dto/update-proyect.dto';
 import { BodyTeam } from './entities/bodyAddTeam.entity';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Proyect } from './entities/proyect.entity';
 
 
 @ApiTags('Proyect')
@@ -13,7 +14,7 @@ export class ProyectController {
   constructor(private readonly proyectService: ProyectService) {}
 
   @Post()
-  create(@Body() createProyectDto: CreateProyectDto, @Req() request: Request) {
+  create(@Body() createProyectDto: CreateProyectDto, @Req() request: Request): Promise<Proyect> {
     const token = request.headers['authorization'].split(" ")[1];
     return this.proyectService.create(createProyectDto, token);
   }
