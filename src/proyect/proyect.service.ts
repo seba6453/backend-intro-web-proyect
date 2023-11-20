@@ -12,6 +12,7 @@ import { fetchTeamOtherBackend } from 'src/fetchMicroService/getTeam';
 import { TeamService } from 'src/team/team.service';
 import { BodyTeam } from './entities/bodyAddTeam.entity';
 import { CreateTeamDto } from 'src/team/dto/create-team.dto';
+import { ProyectE } from './entities/proyect.entity';
 
 @Injectable()
 export class ProyectService {
@@ -28,8 +29,6 @@ export class ProyectService {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
     createProyectDto.owner = userToken.userName;
-    console.log(createProyectDto);
-    console.log(123)
     return this.proyectModel.create(createProyectDto);
   }
 
@@ -60,10 +59,17 @@ export class ProyectService {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
 
-    const team: Team = await fetchTeamOtherBackend(token, body.uniqueCode);
+    const proyect: ProyectE = await this.proyectModel.findOne({_id: body.id_proyect});
+    if(proyect === null){
+      throw new Error('Proyecto no existe en el sistema.');
+    }
 
+    const team: Team = await fetchTeamOtherBackend(token, body.uniqueCode);
+    if(team.name === undefined){
+      throw new Error('Team no existe en el sistema.');
+    }
     const newTeam: CreateTeamDto = {
-      id_proyect: body.id_proyect,
+      id_proyect: proyect.id,
       name: team.name
     }
 

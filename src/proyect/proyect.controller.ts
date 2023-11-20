@@ -4,10 +4,10 @@ import { CreateProyectDto } from './dto/create-proyect.dto';
 import { UpdateProyectDto } from './dto/update-proyect.dto';
 import { BodyTeam } from './entities/bodyAddTeam.entity';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Proyect } from './entities/proyect.entity';
+import { Proyect } from '../schema/proyect.schema';
 
 
-@ApiTags('Proyect')
+@ApiTags('ProyectE')
 @ApiBearerAuth()
 @Controller('proyect')
 export class ProyectController {
