@@ -7,9 +7,10 @@ import { linkMongo } from './config/constants';
 import { TeamModule } from './team/team.module';
 import { TokenMiddleware } from './middleware/token.middleware';
 import { ProyectController } from './proyect/proyect.controller';
+import { TaskModule } from './task/task.module';
 
 @Module({
-  imports: [ProyectModule, MongooseModule.forRoot(linkMongo.secret), TeamModule],
+  imports: [ProyectModule, MongooseModule.forRoot(linkMongo.secret), TeamModule, TaskModule],
   controllers: [AppController],
   providers: [AppService],
 })

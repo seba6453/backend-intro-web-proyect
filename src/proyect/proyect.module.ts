@@ -16,6 +16,7 @@ import { TeamModule } from 'src/team/team.module';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1 days'},
     }), TeamModule
-  ]
+  ],
+  exports: [ProyectService]
 })
 export class ProyectModule {}

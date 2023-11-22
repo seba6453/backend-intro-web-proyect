@@ -65,6 +65,8 @@ export class ProyectService {
     }
 
     const team: Team = await fetchTeamOtherBackend(token, body.uniqueCode);
+    console.log(team);
+    console.log(123);
     if(team.name === undefined){
       throw new Error('Team no existe en el sistema.');
     }
