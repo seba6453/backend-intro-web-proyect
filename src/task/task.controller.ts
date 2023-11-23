@@ -64,7 +64,7 @@ export class TaskController {
   @ApiOperation({ summary: 'Inicializa una tarea por su ID' })
   @ApiQuery({ name: 'id_task', required: true, description: 'ID de la tarea' })
   @ApiResponse({ status: 200, type: Task })
-  @Patch(':id_task')
+  @Patch('init/:id_task')
   initTask(@Param('id_task') id_task: string, @Req() request: Request) {
     const token = request.headers['authorization'].split(" ")[1];
     return this.taskService.initTask(id_task, token);
@@ -73,7 +73,7 @@ export class TaskController {
   @ApiOperation({ summary: 'Finaliza una tarea por su ID' })
   @ApiQuery({ name: 'id_task', required: true, description: 'ID de la tarea' })
   @ApiResponse({ status: 200, type: Task })
-  @Patch(':id_task')
+  @Patch('finish/:id_task')
   finishTask(@Param('id_task') id_task: string, @Req() request: Request) {
     const token = request.headers['authorization'].split(" ")[1];
     return this.taskService.finishTask(id_task, token);
