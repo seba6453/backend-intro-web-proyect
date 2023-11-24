@@ -8,8 +8,8 @@ export function nowDate() {
 }
 
 export function isValidDateFormat(dateString: string) {
-    // Se espera que la cadena tenga el formato dd/mm/yyyy
-    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    // Se espera que la cadena tenga el formato yyyy/mm/dd
+    const dateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
 
     return dateRegex.test(dateString);
 }

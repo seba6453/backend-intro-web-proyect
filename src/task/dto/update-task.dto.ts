@@ -20,8 +20,4 @@ export class UpdateTaskDto {
   @IsDate()
   @IsOptional()
   endDate?: string | null;
-
-  @IsBoolean()
-  @IsOptional()
-  is_deleted?: boolean;
 }
