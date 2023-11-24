@@ -29,7 +29,7 @@ export class ProyectService {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
     createProyectDto.owner = userToken.userName;
-    return this.proyectModel.create(createProyectDto);
+    return await this.proyectModel.create(createProyectDto);
   }
 
   async findAll(token: string) {

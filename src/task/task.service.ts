@@ -38,9 +38,9 @@ export class TaskService {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
 
-    const listTask: Task[] = await this.taskModel.find({id_proyect: id_proyect}).exec();
+    const listTask: Task[] = await this.taskModel.find({id_proyect: id_proyect, is_deleted: false}).exec();
 
-    return listTask.map(task => task.is_deleted === false);
+    return listTask;
   }
 
   async findOne(id: string, token: string) {
@@ -77,7 +77,7 @@ export class TaskService {
     if (!userToken || typeof userToken !== 'object') {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
-    return await this.taskModel.updateOne({_id: id}, {is_delete: true});
+    return await this.taskModel.updateOne({_id: id}, {is_deleted: true});
   }
 
   async initTask(id: string, token: string) {

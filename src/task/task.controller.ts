@@ -18,7 +18,6 @@ export class TaskController {
   @ApiResponse({ status: 201, type: Task }) // Tipo de dato retornado
   @Post()
   create(@Body() createTaskDto: CreateTaskDto, @Req() request: Request) {
-    console.log(createTaskDto);
     const token = request.headers['authorization'].split(" ")[1];
     return this.taskService.create(createTaskDto, token);
   }

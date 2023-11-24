@@ -13,11 +13,11 @@ export class Task {
   @Prop({required: true,trim: true })
   description: string;
 
-  @Prop({ type: Date, default: null, trim: true })
-  startDate: Date;
+  @Prop({ default: null, trim: true })
+  startDate: string;
 
-  @Prop({ type: Date, default: null, trim: true })
-  endDate: Date;
+  @Prop({ default: null, trim: true })
+  endDate: string;
 
   @Prop({ enum: TaskState, default: TaskState.TODO, trim: true })
   state: TaskState;
