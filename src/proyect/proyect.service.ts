@@ -13,6 +13,7 @@ import { TeamService } from 'src/team/team.service';
 import { BodyTeam } from './entities/bodyAddTeam.entity';
 import { CreateTeamDto } from 'src/team/dto/create-team.dto';
 import { ProyectE } from './entities/proyect.entity';
+import { UpdateTeamDto } from 'src/team/dto/update-team.dto';
 
 @Injectable()
 export class ProyectService {
@@ -96,4 +97,20 @@ export class ProyectService {
     return this.teamService.findTeamProyect(idProyect);
   }
 
+  async deleteTeamMany(nameTeam: string, token: string) {
+    const userToken: User = await decodeToken(token,this.jwtService);
+    if (!userToken || typeof userToken !== 'object') {
+      throw new Error('Token inválido o no contiene información del usuario.');
+    }
+
+    return await this.teamService.deleteTeamMany(nameTeam);
+  }
+
+  async updateTeamMany(nameTeam: string, token: string, updateTeam: UpdateTeamDto) {
+    const userToken: User = await decodeToken(token,this.jwtService);
+    if (!userToken || typeof userToken !== 'object') {
+      throw new Error('Token inválido o no contiene información del usuario.');
+    }
+    return await this.teamService.updateTeamMany(nameTeam, updateTeam.name);
+  }
 }

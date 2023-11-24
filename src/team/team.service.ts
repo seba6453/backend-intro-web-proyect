@@ -23,4 +23,12 @@ export class TeamService {
         return this.teamModel.find({id_proyect: idProyect}).exec();
     }
 
+    async deleteTeamMany(nameTeam: string){
+        return await this.teamModel.deleteMany({name: nameTeam});
+    }
+
+    async updateTeamMany(nameTeam: string, newNameTeam: string) {
+        return await this.teamModel.updateMany({name: nameTeam}, {name: newNameTeam});
+    }
+
 }

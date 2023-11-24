@@ -6,6 +6,7 @@ import { BodyTeam } from './entities/bodyAddTeam.entity';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Proyect } from '../schema/proyect.schema';
 import { Team } from 'src/team/entity/team.entity';
+import { UpdateTeamDto } from 'src/team/dto/update-team.dto';
 
 
 @ApiTags('Proyect')
@@ -75,5 +76,24 @@ export class ProyectController {
   findTeamsProyect(@Param('idproyect') idproyect: string, @Req() request: Request) {
     const token = request.headers['authorization'].split(" ")[1];
     return this.proyectService.findTeamProyect(idproyect, token);
+  }
+
+  @ApiOperation({ summary: 'Elimina todos los equipos con el nombre especificado del sistema' })
+  @ApiParam({ name: 'nameteam', required: true, description: 'Nombre del equipo' })
+  @ApiResponse({ status: 200 })
+  @Post('/teams/:nameteam')
+  deleteTeamMay(@Param('nameteam') nameteam: string, @Req() request: Request) {
+    const token = request.headers['authorization'].split(" ")[1];
+    return this.proyectService.deleteTeamMany(nameteam,token);
+  }
+
+  @ApiOperation({ summary: 'Actualiza el nombre de un equipo' })
+  @ApiParam({ name: 'name', required: true, description: 'Nombre del equipo' })
+  @ApiBody({ type: UpdateProyectDto })
+  @ApiResponse({ status: 200, type: Team })
+  @Patch('team/:nameteam')
+  updateTeam(@Param('nameteam') nameteam: string, @Body() updateTeam: UpdateTeamDto, @Req() request: Request) {
+    const token = request.headers['authorization'].split(" ")[1];
+    return this.proyectService.updateTeamMany(nameteam,token, updateTeam);
   }
 }
