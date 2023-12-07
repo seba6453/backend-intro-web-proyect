@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString, IsDate, IsBoolean } from 'class-validator';
+import { TaskState } from '../entities/TaskState.enum';
 
 export class CreateTaskDto {
   @IsString()
@@ -14,22 +15,27 @@ export class CreateTaskDto {
   id_proyect: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   emailCreator: string;
 
   @IsString()
   @IsOptional()
-  nameResponsible: string | null;
+  state: TaskState = TaskState.TODO;
+
+  @IsString()
+  @IsOptional()
+  nameResponsible: string | null = null;
 
   @IsDate()
   @IsOptional()
-  startDate: string | null;
+  startDate: string | null = null;
 
   @IsDate()
   @IsOptional()
-  endDate: string | null;
+  endDate: string | null = null;
 
   @IsBoolean()
   @IsOptional()
-  is_deleted: boolean;
+  is_deleted: boolean = false;
 }
+

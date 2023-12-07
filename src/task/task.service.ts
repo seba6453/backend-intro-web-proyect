@@ -28,7 +28,6 @@ export class TaskService {
 
     createTaskDto.emailCreator = userToken.email;
 
-    console.log(createTaskDto);
     return await this.taskModel.create(createTaskDto);
   }
 

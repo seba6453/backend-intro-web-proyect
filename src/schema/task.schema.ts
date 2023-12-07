@@ -4,13 +4,12 @@ import { TaskState } from '../task/entities/TaskState.enum'
 
 export type TaskDocument = HydratedDocument<Task>;
 
-
 @Schema()
 export class Task {
-  @Prop({ trim: true })
+  @Prop({ required: true, trim: true })
   name: string;
 
-  @Prop({required: true,trim: true })
+  @Prop({ required: true, trim: true })
   description: string;
 
   @Prop({ default: null, trim: true })
@@ -19,10 +18,10 @@ export class Task {
   @Prop({ default: null, trim: true })
   endDate: string;
 
-  @Prop({ enum: TaskState, default: TaskState.TODO, trim: true })
-  state: TaskState;
+  @Prop({ default: TaskState.TODO, trim: true, required: true })
+  state: string;
 
-  @Prop({required: true, trim: true })
+  @Prop({ required: true, trim: true })
   emailCreator: string;
 
   @Prop({ trim: true, default: null })
@@ -31,7 +30,7 @@ export class Task {
   @Prop({ ref: 'Proyect', trim: true, required: true })
   id_proyect: string; 
 
-  @Prop({ default: false, trim: true })
+  @Prop({ default: false, trim: true, required: true })
   is_deleted: boolean;
 }
 
