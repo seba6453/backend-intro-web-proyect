@@ -10,3 +10,11 @@ export const jwtConstants = {
 export const linkMongo = {
   secret: process.env.MONGO_KEY,
 };
+
+export const linkMSAuth = {
+  secret: process.env.MS_AUTH,
+}
+
+export const linkMSTeam = {
+  secret: process.env.MS_TEAM,
+}

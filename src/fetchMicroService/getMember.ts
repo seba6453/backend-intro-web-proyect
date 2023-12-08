@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { linkMSAuth } from 'src/config/constants';
 
 export async function fetchMemberOtherBackend(token: string, id_team: string) {
   try {
@@ -7,7 +8,7 @@ export async function fetchMemberOtherBackend(token: string, id_team: string) {
       'Content-Type': 'application/json',
     };
 
-    const response = await axios.get(`http://localhost:3001/team/member/${id_team}`, { headers });
+    const response = await axios.get(linkMSAuth + `/member/${id_team}`, { headers });
 
     return response.data;
   } catch (error) {

@@ -31,4 +31,18 @@ export class TeamService {
         return await this.teamModel.updateMany({name: nameTeam}, {name: newNameTeam});
     }
 
+    async inProyectTeam(nameTeam: string, id_proyect: string){
+        const teams = await this.findTeamProyect(id_proyect);
+        const team = teams.find((team) => {
+            if(team.name === nameTeam){
+                return team;
+            }
+        })
+        var condition = false;
+        if(team){
+            condition = true;
+        }
+        return condition;
+    }
+
 }
