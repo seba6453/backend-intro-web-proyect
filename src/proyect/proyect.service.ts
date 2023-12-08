@@ -4,7 +4,7 @@ import { UpdateProyectDto } from './dto/update-proyect.dto';
 import { Proyect } from 'src/schema/proyect.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './entities/user.entity';
+import { Member, User } from './entities/user.entity';
 import { decodeToken } from 'src/config/token';
 import { JwtService } from '@nestjs/jwt';
 import { Team } from 'src/team/entity/team.entity';
@@ -14,6 +14,7 @@ import { BodyTeam } from './entities/bodyAddTeam.entity';
 import { CreateTeamDto } from 'src/team/dto/create-team.dto';
 import { ProyectE } from './entities/proyect.entity';
 import { UpdateTeamDto } from 'src/team/dto/update-team.dto';
+import { fetchMemberOtherBackendByTeam } from 'src/fetchMicroService/getMemberByTeam';
 
 @Injectable()
 export class ProyectService {
@@ -34,8 +35,10 @@ export class ProyectService {
   }
 
   async findAll(token: string) {
-    const userToken: User = await decodeToken(token,this.jwtService);
-    return await this.proyectModel.find({ owner: userToken.userName }).exec();
+    const userToken: User = decodeToken(token,this.jwtService);
+    const proyectsOwner =  await this.proyectModel.find({ owner: userToken.userName }).exec();
+
+    return proyectsOwner;
   }
 
   async update(id: string, updateProyectDto: UpdateProyectDto, token: string) {
@@ -66,14 +69,13 @@ export class ProyectService {
     }
 
     const team: Team = await fetchTeamOtherBackend(token, body.uniqueCode);
-    console.log(team);
-    console.log(123);
     if(team.name === undefined){
       throw new Error('Team no existe en el sistema.');
     }
     const newTeam: CreateTeamDto = {
       id_proyect: proyect.id,
-      name: team.name
+      name: team.name,
+      id_team_ms: team._id
     }
 
     return await this.teamService.create(newTeam);

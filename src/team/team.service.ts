@@ -16,7 +16,7 @@ export class TeamService {
     }
 
     async delete(id: string) {
-        return this.teamModel.deleteOne({_id: id});
+        return this.teamModel.deleteOne({id_team_ms: id});
     }
 
     async findTeamProyect(idProyect: string) {
@@ -31,18 +31,11 @@ export class TeamService {
         return await this.teamModel.updateMany({name: nameTeam}, {name: newNameTeam});
     }
 
-    async inProyectTeam(nameTeam: string, id_proyect: string){
+    async includesProyectTeam(nameTeam: string, id_proyect: string){
         const teams = await this.findTeamProyect(id_proyect);
-        const team = teams.find((team) => {
-            if(team.name === nameTeam){
-                return team;
-            }
-        })
-        var condition = false;
-        if(team){
-            condition = true;
-        }
-        return condition;
+        return teams.some((team) => {
+            team.name === nameTeam
+        });
     }
 
 }

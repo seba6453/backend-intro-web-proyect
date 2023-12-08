@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { linkMSTeam } from 'src/config/constants';
-import { Team } from 'src/team/entity/team.entity';
+import { Member } from 'src/proyect/entities/user.entity';
 
-export async function fetchTeamOtherBackendByMember(token: string) {
+export async function fetchMemberOtherBackendByTeam(token: string, id_team: string): Promise<Member[]> {
   try {
     const headers = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
-
-    const response = await axios.get(linkMSTeam.secret, { headers });
+    const response = await axios.get(linkMSTeam.secret + `/member/${id_team}`, { headers });
 
     return response.data;
   } catch (error) {

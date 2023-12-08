@@ -8,4 +8,8 @@ export class CreateTeamDto {
     @IsString()
     @IsNotEmpty()
     name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    id_team_ms: string;
 }
