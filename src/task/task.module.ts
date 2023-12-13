@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from 'src/config/constants';
 import { ProyectModule } from 'src/proyect/proyect.module';
+import { CommentModule } from 'src/comment/comment.module';
 
 @Module({
   controllers: [TaskController],
@@ -15,6 +16,6 @@ import { ProyectModule } from 'src/proyect/proyect.module';
   global: true,
   secret: jwtConstants.secret,
   signOptions: { expiresIn: '1 days'},
-}), ProyectModule]
+}), ProyectModule, CommentModule]
 })
 export class TaskModule {}

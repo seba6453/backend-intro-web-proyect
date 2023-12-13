@@ -10,13 +10,15 @@ import { User } from 'src/proyect/entities/user.entity';
 import { ProyectService } from 'src/proyect/proyect.service';
 import { TaskState } from './entities/TaskState.enum';
 import { isValidDateFormat } from 'src/config/date';
+import { CommentService } from 'src/comment/comment.service';
 
 @Injectable()
 export class TaskService {
   constructor(
     private jwtService: JwtService,
     @InjectModel(Task.name) private readonly taskModel: Model<Task>,
-    private readonly proyectService: ProyectService
+    private readonly proyectService: ProyectService,
+    private readonly commentService: CommentService
   ){}
 
 
@@ -71,11 +73,13 @@ export class TaskService {
     return await this.taskModel.updateOne({_id: id}, updateTaskDto);
   }
 
-  async remove(id: string, token: string) {
+  async remove(id: string, token: string): Promise<UpdateResult> {
     const userToken: User = decodeToken(token,this.jwtService);
     if (!userToken || typeof userToken !== 'object') {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
+    await this.commentService.deleteByTask(id);
+
     return await this.taskModel.updateOne({_id: id}, {is_deleted: true});
   }
 
@@ -94,22 +98,6 @@ export class TaskService {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
     return await this.taskModel.updateOne({_id:id}, {state: TaskState.DONE});
-  }
-
-  async searchTasks(filter: Partial<FilterQuery<Task>>, token: string) {
-    const userToken: User = decodeToken(token, this.jwtService);
-    if (!userToken || typeof userToken !== 'object') {
-      throw new Error('Token inválido o no contiene información del usuario.');
-    }
-
-    if (filter.state && !Object.values(TaskState).includes(filter.state)) {
-      throw new Error('Estado de tarea no válido.');
-    }
-
-    const listTask: Task[] = await this.taskModel.find(filter).exec();
-
-
-    return listTask.filter(task => !task.is_deleted);
   }
 
 }

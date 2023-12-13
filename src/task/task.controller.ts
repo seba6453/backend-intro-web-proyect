@@ -77,10 +77,14 @@ export class TaskController {
   @ApiQuery({ name: 'id_task', required: true, description: 'ID de la tarea' })
   @ApiResponse({ status: 200 })
   @Delete(':id_task')
-  remove(@Param('id_task') id_task: string, @Req() request: Request) {
+  async remove(@Param('id_task') id_task: string, @Req() request: Request): Promise<ResponseOk> {
     try{
       const token = request.headers['authorization'].split(" ")[1];
-      return this.taskService.remove(id_task, token);
+      const responseUpdate = await this.taskService.remove(id_task, token);
+      if(responseUpdate.modifiedCount == 0){
+        throw new HttpException('No fue posible Eliminar una tarea por su ID', HttpStatusCode.BadRequest);
+      }
+      return { message: "Tarea eliminada", statusCode: HttpStatusCode.Ok }
     }catch (error){
       console.error('Error en remove:', error);
       throw new HttpException('No fue posible Eliminar una tarea por su ID', HttpStatusCode.BadRequest);

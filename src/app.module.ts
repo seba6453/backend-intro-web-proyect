@@ -8,9 +8,10 @@ import { TeamModule } from './team/team.module';
 import { TokenMiddleware } from './middleware/token.middleware';
 import { ProyectController } from './proyect/proyect.controller';
 import { TaskModule } from './task/task.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
-  imports: [ProyectModule, MongooseModule.forRoot(linkMongo.secret), TeamModule, TaskModule],
+  imports: [ProyectModule, MongooseModule.forRoot(linkMongo.secret), TeamModule, TaskModule, CommentModule],
   controllers: [AppController],
   providers: [AppService],
 })
