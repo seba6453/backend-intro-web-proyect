@@ -5,9 +5,9 @@ export class Task {
 
     description: string;
 
-    startDate: Date;
+    startDate: string;
 
-    endDate: Date;
+    endDate: string;
 
     state: TaskState;
 

@@ -61,13 +61,13 @@ export class TaskService {
 
     if(updateTaskDto.startDate){
       if(!isValidDateFormat(updateTaskDto.startDate)){
-        throw new Error('Formato de fecha invalido, formato dd/mm/yyyy.');
+        throw new Error('Formato de fecha invalido, formato yyyy/mm/dd.');
       }
     }
 
     if(updateTaskDto.endDate){
       if(!isValidDateFormat(updateTaskDto.endDate)){
-        throw new Error('Formato de fecha invalido, dd/mm/yyyy.');
+        throw new Error('Formato de fecha invalido, yyyy/mm/dd.');
       }
     }
 

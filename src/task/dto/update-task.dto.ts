@@ -13,11 +13,19 @@ export class UpdateTaskDto {
   @IsOptional()
   nameResponsible?: string | null;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
   startDate?: string | null;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
   endDate?: string | null;
+
+  @IsString()
+  @IsOptional()
+  state?: string | null;
+
+  @IsString()
+  @IsOptional()
+  emailCreator?: string | null
 }
