@@ -12,6 +12,7 @@ export class CreateTaskDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   id_proyect: string;
 
   @IsString()
@@ -26,11 +27,11 @@ export class CreateTaskDto {
   @IsOptional()
   nameResponsible: string | null = null;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
   startDate: string | null = null;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
   endDate: string | null = null;
 

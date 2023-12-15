@@ -20,9 +20,11 @@ export class TaskController {
   create(@Body() createTaskDto: CreateTaskDto, @Req() request: Request) {
     try{
       const token = request.headers['authorization'].split(" ")[1];
+
+      console.log('Datos de la tarea a crear:', createTaskDto);
       return this.taskService.create(createTaskDto, token);
     }catch (error){
-      console.error('Error en create:', error);
+      console.error('Error en create aa:', error, createTaskDto);
       throw new HttpException('No fue posible Crear una nueva tarea', HttpStatusCode.BadRequest);
     }
     

@@ -27,6 +27,7 @@ export class TaskService {
     if (!userToken || typeof userToken !== 'object') {
       throw new Error('Token inválido o no contiene información del usuario.');
     }
+    console.log('Datos de la tarea a crear:', createTaskDto);
 
     createTaskDto.emailCreator = userToken.email;
 
